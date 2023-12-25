@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         // Using the credentials ID for Docker Hub that you've configured in Jenkins
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         IMAGE_TAG = 'anjalisingh99/banking:latest'
     }
 
