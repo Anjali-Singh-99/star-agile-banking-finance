@@ -7,8 +7,6 @@ pipeline {
     }
 
     environment {
-        // Using the credentials ID for Docker Hub that you've configured in Jenkins
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         IMAGE_TAG = 'anjalisingh99/banking:latest'
     }
 
@@ -30,11 +28,19 @@ pipeline {
         stage('Docker Build and Push') {
             steps {
                 script {
+                    // Hardcoded Docker credentials (not recommended)
+                    def dockerUsername = 'anjalisingh99'
+                    def dockerPassword = 'Anjali@123'
+                    
+                    // Docker login
+                    sh "echo '${dockerPassword}' | docker login -u '${dockerUsername}' --password-stdin"
+
                     // Docker build and push
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
-                        def customImage = docker.build(IMAGE_TAG)
-                        customImage.push()
-                    }
+                    def customImage = docker.build(IMAGE_TAG)
+                    customImage.push()
+
+                    // Docker logout
+                    sh 'docker logout'
                 }
             }
         }
@@ -42,7 +48,7 @@ pipeline {
 
     post {
         always {
-            // This is a post-build step, you can add actions to perform after the pipeline runs
+            // Post-build step
             echo 'The pipeline is complete.'
         }
     }
