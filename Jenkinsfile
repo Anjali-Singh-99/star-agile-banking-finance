@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven' 
+        maven 'Maven'
         // Ensure that Ansible is configured in your Jenkins tools
         ansible 'Ansible'
     }
@@ -42,7 +42,11 @@ pipeline {
             steps {
                 script {
                     // Running the Ansible playbook
-                    ansiblePlaybook(playbook: 'ansible_playbook.yaml')
+                    ansiblePlaybook(
+                        playbook: 'ansible_playbook.yaml',
+                        inventory: 'hosts.ini',
+                        
+                    )
                 }
             }
         }
