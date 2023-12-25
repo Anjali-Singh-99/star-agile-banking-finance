@@ -43,7 +43,7 @@ pipeline {
                 script {
                     // Running the Ansible playbook
                     ansiblePlaybook(
-                        playbook: 'ansible-playbook.yaml',
+                        playbook: 'ansible-playbook.yml',
                         inventory: 'hosts.ini',
                         
                     )
