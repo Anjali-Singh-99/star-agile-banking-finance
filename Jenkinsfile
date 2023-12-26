@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'
-        // Ensure that Ansible is configured in your Jenkins tools
+        maven 'Maven' 
         ansible 'Ansible'
     }
 
@@ -37,15 +36,13 @@ pipeline {
             }
         }
 
-        // New stage for Ansible deployment
         stage('Deploy with Ansible') {
             steps {
                 script {
-                    // Running the Ansible playbook
                     ansiblePlaybook(
-                        playbook: 'ansible-playbook.yml',
+                        playbook: 'ansible_playbook.yaml',
                         inventory: 'hosts.ini',
-                        
+                        extras: '--private-key /root/.ssh/id_rsa' // Replace with the actual path to your private key
                     )
                 }
             }
