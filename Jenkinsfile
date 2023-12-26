@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     ansiblePlaybook(
-                        playbook: 'ansible_playbook.yaml',
+                        playbook: 'ansible-playbook.yml',
                         inventory: 'hosts.ini',
                         extras: '--private-key /var/lib/jenkins/.ssh/id_rsa'  // Adjust path as needed
                     )
